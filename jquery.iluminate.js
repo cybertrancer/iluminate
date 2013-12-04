@@ -18,8 +18,13 @@
 
         return this.each( function() {
 
-            // parent bg color will determine the shadow color
-            var bg = $(this).parent().css("background-color");
+            // parents(!) bg color will determine the shadow color
+         			var obj=$(this).parent();
+                     var bg = obj.css("background-color");
+         			while(obj[0].nodeName!='HTML' && bg=='transparent' || !bg || bg=='rgba(0, 0, 0, 0)'){
+         				obj=obj.parent();
+         				bg=obj.css("background-color");
+         			}
             var darkerBG = $.xcolor.opacity(bg, 'black', settings.alpha);
 
             // generate shadows and offset
